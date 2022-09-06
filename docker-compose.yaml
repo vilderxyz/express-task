@@ -1,0 +1,34 @@
+version: "3.9"
+
+services:
+  app:
+    build:
+      context: .
+    environment:
+      - APP_MYSQL_HOST=db
+      - APP_MYSQL_PORT=3306
+      - APP_MYSQL_USERNAME=user
+      - APP_MYSQL_PASSWORD=password
+      - APP_MYSQL_DATABASE=task
+    volumes:
+      - ./src:/app/src
+      - ./package.json:/app/package.json
+    restart: always
+    command: npm run start
+    ports:
+      - 3000:3000
+      - 9229:9229
+
+  db:
+    image: mysql/mysql-server:8.0.23
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_USER=user
+      - MYSQL_PASSWORD=password
+      - MYSQL_DATABASE=task
+      - MYSQL_ROOT_HOST=%
+    volumes:
+      - ./db-entrypoint.sql:/docker-entrypoint-initdb.d/db-entrypoint.sql
+      - ./db-data.sql:/db-data.sql
+    ports:
+      - 3306:3306
