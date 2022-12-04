@@ -49,6 +49,7 @@ export const isAuth = async (req: RequestWithUser, res: Response, next) => {
         const user = result[0];
 
         req.user = {
+            id: user.id,
             username: user.username,
         }
 
