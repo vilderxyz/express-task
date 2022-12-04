@@ -1,9 +1,7 @@
-import express, { Request, Response } from "express";
-import { QueryError, RowDataPacket } from "mysql2";
-import * as jwt from 'jsonwebtoken'
-import {env} from 'process';
+import express from "express";
 
 import { AppDependencies } from "./lib/di";
+import authRoutes from './routes/auth'
 
 function serverFactory(deps: AppDependencies) {
   const { config } = deps;
@@ -11,46 +9,7 @@ function serverFactory(deps: AppDependencies) {
 
   app.use(express.json());
 
-  app.post("/api/v1/auth/login", (req: Request, res: Response) => {
-    const { body } = req;
-
-    if (!body?.username || !body?.password) {
-        res.statusMessage = "Invalid body parameters";
-
-        return res.sendStatus(400);
-    }
-
-    deps.db.execute("SELECT * FROM users WHERE username = ?", [body?.username], (err: QueryError, result: RowDataPacket[]) => {
-      if (err) {
-        console.log(err);
-
-        res.statusMessage = "Internal error";
-
-        return res.sendStatus(500);
-      }
-
-      if (result.length <= 0) {
-        res.statusMessage = "Invalid credentials";
-
-        return res.sendStatus(401);
-      }
-
-      const user = result[0];
-
-      if (user.password !== body?.password) {
-        res.statusMessage = "Invalid credentials";
-
-        return res.sendStatus(401);
-      }
-
-      const token = generateAccessToken(user.username);
-
-      return res.json({
-        "token": token,
-        "message": "User successfully logged in",
-      });
-    });
-  });
+  app.use("/api/v1/auth", authRoutes);
 
   const port = config.HTTP.port;
 
@@ -60,8 +19,5 @@ function serverFactory(deps: AppDependencies) {
 }
 
 
-function generateAccessToken(username: string): string {
-  return jwt.sign({username: username}, env.APP_TOKEN_SECRET, {expiresIn: env.APP_TOKEN_EXPIRY});
-}
 
 export default serverFactory;
