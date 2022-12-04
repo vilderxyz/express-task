@@ -10,6 +10,8 @@ services:
       - APP_MYSQL_USERNAME=user
       - APP_MYSQL_PASSWORD=password
       - APP_MYSQL_DATABASE=task
+      - APP_TOKEN_SECRET=supersecret
+      - APP_TOKEN_EXPIRY=600
     volumes:
       - ./src:/app/src
       - ./package.json:/app/package.json

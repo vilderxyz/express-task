@@ -21,6 +21,7 @@ async function createDependencyContainer(
     },
     config,
   };
+  
   return module;
 }
 
