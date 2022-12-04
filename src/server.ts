@@ -1,7 +1,9 @@
 import express from "express";
 
 import { AppDependencies } from "./lib/di";
-import authRoutes from './routes/auth'
+import { isAuth } from "./middleware/is-auth";
+import authRoutes from "./routes/auth"
+import locationsRoutes from "./routes/locations"
 
 function serverFactory(deps: AppDependencies) {
   const { config } = deps;
@@ -10,6 +12,9 @@ function serverFactory(deps: AppDependencies) {
   app.use(express.json());
 
   app.use("/api/v1/auth", authRoutes);
+  
+  app.use("/api/v1", isAuth);
+  app.use("/api/v1/locations", locationsRoutes)
 
   const port = config.HTTP.port;
 
