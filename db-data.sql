@@ -14,3 +14,5 @@ INSERT INTO `cities` (`name`, `coordinate`) VALUES
     ('Wrocław', POINT(51.107883, 17.038538)),
     ('Kraków', POINT(50.049683, 19.944544));
 
+
+CREATE TABLE IF NOT EXISTS `userCityRelations`(`id` MEDIUMINT NOT NULL AUTO_INCREMENT, `userId` MEDIUMINT NOT NULL, `cityId` MEDIUMINT NOT NULL, FOREIGN KEY (`userId`) REFERENCES `users`(`id`), FOREIGN KEY (`cityId`) REFERENCES `cities`(`id`), PRIMARY KEY (`id`));
