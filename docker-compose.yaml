@@ -11,7 +11,7 @@ services:
       - APP_MYSQL_PASSWORD=password
       - APP_MYSQL_DATABASE=task
       - APP_TOKEN_SECRET=supersecret
-      - APP_TOKEN_EXPIRY=600
+      - APP_TOKEN_EXPIRY=600s
     volumes:
       - ./src:/app/src
       - ./package.json:/app/package.json
