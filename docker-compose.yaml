@@ -12,6 +12,7 @@ services:
       - APP_MYSQL_DATABASE=task
       - APP_TOKEN_SECRET=supersecret
       - APP_TOKEN_EXPIRY=600s
+      - APP_OPENWEATHER_API_KEY=ed9147b3510d143ac3a6633c55266179
     volumes:
       - ./src:/app/src
       - ./package.json:/app/package.json
