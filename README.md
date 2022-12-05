@@ -32,9 +32,29 @@ As your task please do the following things:
    2. GET /locations - verify user and return list of cities
    3. POST /location/:id/favorite - verify user and add city to favorites for given user
    4. GET /weather - fetch and return weather for user favorited cities, you can use any weather api you want, eg. https://openweathermap.org/api
+
+   DONE
+
 2. We preffer to see correctly committed code, we will be very sad to see whole task commited as one commit.
 
+   DONE
+
 3. Please shortly explain why your code is easily testable. You can use an example for this.
+
+   Every endpoint is easily testable using jest or chai against various use cases like invalid body, missing header or incorrect token. There is also room for unit testing with signing and verifying tokens.
+ 
+   If it comes to e2e tests, I like chai and the example test would look like this after setting up the test environment.
+
+   ```
+      const response = await chai
+        .request(server)
+        .post(LOGIN_ENDPOINT)
+        .auth(LOGIN_BODY_USER_1.USERNAME, LOGIN_BODY_USER_1.PASSWORD);
+
+      expect(response).to.have.status(StatusCodes.OK);
+      expect(response.body).to.have.property('token');
+   ```
+
 4. Add es-lint rules and some form of forcing them in code. Why have you decided to implement such rules and why have you chosen such form of enforcing them?
 5. (Optional) Add possibility to start application in dev(local) mode. In such mode app should not request open weather api for weather but should use some mocked data, stored locally.
    Please describe idea behind this implementation.
