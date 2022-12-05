@@ -1,10 +1,10 @@
-import { Router } from "express";
+import { Router } from 'express';
 
-import { addFavoriteCity, getCities } from "../controllers/locations";
+import { addFavoriteCity, getCities } from '../controllers/locations';
 
 const router = Router();
 
-router.get("/", getCities);
-router.post("/:id/favorite", addFavoriteCity);
+router.get('/', getCities);
+router.post('/:id/favorite', addFavoriteCity);
 
 export default router;

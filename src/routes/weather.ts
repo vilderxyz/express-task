@@ -1,9 +1,9 @@
-import { Router } from "express";
+import { Router } from 'express';
 
-import { getWeatherForFavoriteCities } from "../controllers/weather";
+import { getWeatherForFavoriteCities } from '../controllers/weather';
 
 const router = Router();
 
-router.get("/", getWeatherForFavoriteCities);
+router.get('/', getWeatherForFavoriteCities);
 
 export default router;
