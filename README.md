@@ -49,7 +49,7 @@ As your task please do the following things:
       const response = await chai
         .request(server)
         .post(LOGIN_ENDPOINT)
-        .auth(LOGIN_BODY_USER_1.USERNAME, LOGIN_BODY_USER_1.PASSWORD);
+        .send(LOGIN_BODY_USER_1.USERNAME, LOGIN_BODY_USER_1.PASSWORD);
 
       expect(response).to.have.status(StatusCodes.OK);
       expect(response.body).to.have.property('token');
