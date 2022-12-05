@@ -28,6 +28,7 @@ This template can be changed in any desired way needed to finish tasks.
 As your task please do the following things:
 
 1. Create following endpoints
+
    1. POST /auth/login - should generate jwt token, don't play with hasing passwords, just plain string comaprison
    2. GET /locations - verify user and return list of cities
    3. POST /location/:id/favorite - verify user and add city to favorites for given user
@@ -42,7 +43,7 @@ As your task please do the following things:
 3. Please shortly explain why your code is easily testable. You can use an example for this.
 
    Every endpoint is easily testable using jest or chai against various use cases like invalid body, missing header or incorrect token. There is also room for unit testing with signing and verifying tokens.
- 
+
    If it comes to e2e tests, I like chai and the example test would look like this after setting up the test environment.
 
    ```
@@ -56,8 +57,15 @@ As your task please do the following things:
    ```
 
 4. Add es-lint rules and some form of forcing them in code. Why have you decided to implement such rules and why have you chosen such form of enforcing them?
-5. (Optional) Add possibility to start application in dev(local) mode. In such mode app should not request open weather api for weather but should use some mocked data, stored locally.
-   Please describe idea behind this implementation.
+
+   DONE.
+
+   I have used standard one configured during initialisation with some rules being disabled by me to not highlight 'errors' in this task's code. From those disabled _explicit-function-return-type_ is an important one because it forces you to think about types and makes it more clear for other developers or you in the future.
+
+5. (Optional) Add possibility to start application in dev(local) mode. In such mode app should not request open weather api for weather but should use some mocked data, stored locally. Please describe idea behind this implementation.
+
+   It is easily achievable by NODE_ENV and different scripts in package.json setting its value at the beginning of application. It may be then checked at any time to find out in which environment it is running.
+
 6. (Optional) Store weather in our database. App should request for weather once every hour and store it in database. Weather returned to user should be fetched from this table. This operation should not be handled by main application thread. It might be child process, worker etc. however, we want the code of origial weather fetch to be reused in this solution.
    Please move this solution to separate branch.
    Please, also describe shortly why you have implemented it like this.
